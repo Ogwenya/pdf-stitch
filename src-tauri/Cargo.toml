@@ -1,0 +1,23 @@
+[package]
+name = "pdf-stitch"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = [ "window-unmaximize", "window-unminimize", "fs-exists", "window-minimize", "window-close", "window-set-fullscreen", "fs-read-dir", "http-all", "dialog-message", "dialog-save", "notification-all", "path-all", "dialog-confirm", "dialog-ask", "window-maximize", "fs-write-file", "dialog-open", "window-set-decorations", "window-set-focus", "fs-create-dir", "fs-read-file", "window-set-size", "process-relaunch", "window-start-dragging", "os-all", "shell-open"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
