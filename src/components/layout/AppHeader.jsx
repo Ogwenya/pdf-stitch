@@ -1,15 +1,13 @@
-// import { Box, Group } from "@mantine/core";
-
 import {
   Menu,
   Group,
   Center,
-  Container,
   Text,
   Flex,
   useMantineColorScheme,
   useComputedColorScheme,
   ActionIcon,
+  Box,
 } from "@mantine/core";
 import "../../AppHeader.module.css";
 import { IconChevronDown, IconMoon, IconSun } from "../../icons/Icons";
@@ -22,7 +20,7 @@ const AppHeader = () => {
 
   return (
     <div className="header">
-      <Container size="md">
+      <Box px={"sm"}>
         <div className="inner">
           <Flex justify={"space-between"}>
             <Group>
@@ -74,7 +72,7 @@ const AppHeader = () => {
             </ActionIcon>
           </Flex>
         </div>
-      </Container>
+      </Box>
     </div>
   );
 };

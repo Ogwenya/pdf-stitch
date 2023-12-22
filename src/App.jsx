@@ -4,6 +4,9 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { invoke } from "@tauri-apps/api/tauri";
 import "@mantine/core/styles.css";
 import Layout from "./components/layout/Layout";
+import DragArea from "./components/DragArea";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 
 function App() {
   // async function greet() {
@@ -16,7 +19,7 @@ function App() {
       <ColorSchemeScript defaultColorScheme="dark" />
       <MantineProvider defaultColorScheme="dark">
         <Layout>
-          <p>home</p>
+          <DragArea />
         </Layout>
       </MantineProvider>
     </>
