@@ -8,7 +8,9 @@ const useDocumentStore = create(
     (set) => ({
       pdfFile: null,
       pdfBytes: null,
+      pageOrder: [],
       isStateUpdating: false,
+      setPageOrder: async (order) => set({ pageOrder: order }),
       setPdfFile: async (file) => {
         if (file && file.toLowerCase().endsWith(".pdf")) {
           set({ isStateUpdating: true });
@@ -35,13 +37,17 @@ const useDocumentStore = create(
             color: "red",
             title: "File Selection Error",
             message: "Please select a PDF file.",
-            // classNames: notification_classes,
             autoClose: false,
           });
         }
       },
       clearState: () =>
-        set({ pdfFile: null, pdfBytes: null, isStateUpdating: false }),
+        set({
+          pdfFile: null,
+          pdfBytes: null,
+          isStateUpdating: false,
+          pageOrder: [],
+        }),
     }),
     {
       name: "pdf-stitch",

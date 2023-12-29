@@ -17,8 +17,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const DragArea = () => {
-  const { pdfBytes } = useDocumentStore();
-  const [document_pages, set_document_pages] = useState([]);
+  const { pdfBytes, pageOrder, setPageOrder } = useDocumentStore();
 
   if (!pdfBytes) {
     return <NoDocument />;
@@ -39,23 +38,21 @@ const DragArea = () => {
     }
   }
 
-  function onDocumentLoadSuccess({ numPages }) {
-    set_document_pages(numberToArray(numPages));
+  async function onDocumentLoadSuccess({ numPages }) {
+    await setPageOrder(numberToArray(numPages));
   }
 
-  const onDragEnd = (event) => {
+  const onDragEnd = async (event) => {
     const { active, over } = event;
 
     if (active.id === over.id) {
       return;
     }
 
-    set_document_pages((pages) => {
-      const oldIndex = pages.findIndex((page) => page === active.id);
-      const newIndex = pages.findIndex((page) => page === over.id);
+    const oldIndex = await pageOrder.findIndex((page) => page === active.id);
+    const newIndex = await pageOrder.findIndex((page) => page === over.id);
 
-      return arrayMove(pages, oldIndex, newIndex);
-    });
+    await setPageOrder(arrayMove(pageOrder, oldIndex, newIndex));
   };
 
   return (
@@ -63,14 +60,14 @@ const DragArea = () => {
       <Document file={pdfBytes} onLoadSuccess={onDocumentLoadSuccess}>
         <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
           <SortableContext
-            items={document_pages}
+            items={pageOrder}
             strategy={verticalListSortingStrategy}
           >
             <SimpleGrid
               cols={{ base: 2, sm: 3, md: 4, lg: 6 }}
               style={{ overflow: "hidden" }}
             >
-              {document_pages.map((page) => (
+              {pageOrder.map((page) => (
                 <SortablePage key={page} page_number={page} />
               ))}
             </SimpleGrid>
