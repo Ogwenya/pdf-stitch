@@ -23,3 +23,17 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.single_pdf_page {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  ) !important;
+  width: 100%;
+  height: 100%;
+}
+
+.single_pdf_page canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

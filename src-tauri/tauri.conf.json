@@ -18,7 +18,7 @@
         "writeText": false
       },
       "dialog": {
-        "all": false,
+        "all": true,
         "ask": true,
         "confirm": true,
         "message": true,
@@ -60,7 +60,7 @@
       },
       "process": {
         "all": false,
-        "exit": false,
+        "exit": true,
         "relaunch": true,
         "relaunchDangerousAllowSymlinkMacos": false
       },

@@ -1,52 +1,83 @@
-import { Paper } from "@mantine/core";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { useState } from "react";
+import { closestCenter, DndContext } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { Document, pdfjs } from "react-pdf";
+import { Box, SimpleGrid } from "@mantine/core";
+import useDocumentStore from "../hooks/documentStore";
+import SortablePage from "./SortablePage";
+import NoDocument from "./NoDocument";
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
-
-const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url
+).toString();
 
 const DragArea = () => {
-  const lg_layout = pages.map((page, index) => ({
-    i: index.toString(),
-    x: (index % 6) * 2,
-    y: Math.floor(index / 6) * 2,
-    w: 2,
-    h: 3,
-  }));
+  const { pdfBytes } = useDocumentStore();
+  const [document_pages, set_document_pages] = useState([]);
 
-  const md_layout = pages.map((page, index) => ({
-    i: index.toString(),
-    x: (index % 4) * 2,
-    y: Math.floor(index / 4) * 2,
-    w: 2,
-    h: 3,
-  }));
+  if (!pdfBytes) {
+    return <NoDocument />;
+  }
 
-  const sm_layout = pages.map((page, index) => ({
-    i: index.toString(),
-    x: (index % 2) * 2,
-    y: Math.floor(index / 2) * 2,
-    w: 2,
-    h: 3,
-  }));
+  function numberToArray(number) {
+    // Check if the provided input is a positive integer
+    if (Number.isInteger(number) && number > 0) {
+      // Initialize an empty array to store the result
+      var resultArray = [];
+
+      // Use a loop to generate numbers from 1 to the provided number
+      for (let i = 1; i <= number; i++) {
+        resultArray.push(i);
+      }
+
+      return resultArray;
+    }
+  }
+
+  function onDocumentLoadSuccess({ numPages }) {
+    set_document_pages(numberToArray(numPages));
+  }
+
+  const onDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (active.id === over.id) {
+      return;
+    }
+
+    set_document_pages((pages) => {
+      const oldIndex = pages.findIndex((page) => page === active.id);
+      const newIndex = pages.findIndex((page) => page === over.id);
+
+      return arrayMove(pages, oldIndex, newIndex);
+    });
+  };
 
   return (
-    <ResponsiveGridLayout
-      className="layout"
-      layouts={{ lg: lg_layout, md: md_layout, sm: sm_layout }}
-      // layout={md_layout}
-      cols={{ lg: 12, md: 8, sm: 4, xs: 1 }}
-      breakpoints={{ lg: 1200, md: 996, sm: 768 }}
-      rowHeight={100}
-      width={1200}
-    >
-      {pages.map((page, index) => (
-        <Paper withBorder key={index}>
-          {index}
-          {/* Render your PDF page here */}
-        </Paper>
-      ))}
-    </ResponsiveGridLayout>
+    <Box my={"lg"} px={"lg"}>
+      <Document file={pdfBytes} onLoadSuccess={onDocumentLoadSuccess}>
+        <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+          <SortableContext
+            items={document_pages}
+            strategy={verticalListSortingStrategy}
+          >
+            <SimpleGrid
+              cols={{ base: 2, sm: 3, md: 4, lg: 6 }}
+              style={{ overflow: "hidden" }}
+            >
+              {document_pages.map((page) => (
+                <SortablePage key={page} page_number={page} />
+              ))}
+            </SimpleGrid>
+          </SortableContext>
+        </DndContext>
+      </Document>
+    </Box>
   );
 };
 
