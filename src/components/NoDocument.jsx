@@ -33,6 +33,10 @@ const NoDocument = () => {
               and perform opertions.
             </List.Item>
             <List.Item>
+              Click <Kbd>File</Kbd> then <Kbd>Save</Kbd> to save a pdf document
+              after performing opertions.
+            </List.Item>
+            <List.Item>
               Click <Kbd>Application</Kbd> then <Kbd>Reset</Kbd> to reset the
               application and remove the selected document.
             </List.Item>

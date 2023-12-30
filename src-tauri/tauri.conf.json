@@ -36,9 +36,9 @@
         "removeFile": false,
         "renameFile": false,
         "scope": [
-          "$APP/*",
-          "$DOCUMENT/*",
-          "$DOWNLOAD/*"
+          "$HOME/*",
+          "$DESKTOP/*",
+          "$DESKTOP/pdf-stitch/*"
         ],
         "writeFile": true
       },
