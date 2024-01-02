@@ -1,4 +1,3 @@
-// import reactLogo from "./assets/react.svg";
 import { useEffect } from "react";
 import { checkUpdate, installUpdate } from "@tauri-apps/api/updater";
 import { relaunch } from "@tauri-apps/api/process";

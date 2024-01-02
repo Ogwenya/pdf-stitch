@@ -17,7 +17,6 @@ import {
 } from "@mantine/core";
 import { IconChevronDown, IconMoon, IconSun } from "../../icons/Icons";
 import useDocumentStore from "../../hooks/documentStore";
-import "../../AppHeader.module.css";
 
 const AppHeader = () => {
   const { pdfBytes, pdfFile, pageOrder, setPdfFile, clearState } =
@@ -140,9 +139,9 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="header">
+    <div>
       <Box px={"sm"}>
-        <div className="inner">
+        <div>
           <Flex justify={"space-between"}>
             <Group>
               {/* save button */}
@@ -152,7 +151,7 @@ const AppHeader = () => {
                 withinPortal
               >
                 <Menu.Target>
-                  <div className="links">
+                  <div className="cursor_pointer">
                     <Center>
                       <Text fz={"sm"}>File</Text>
                       <Text fz={"sm"} h={22} w={15}>
@@ -176,7 +175,7 @@ const AppHeader = () => {
                 withinPortal
               >
                 <Menu.Target>
-                  <div className="link">
+                  <div className="cursor_pointer">
                     <Center>
                       <Text fz={"sm"}>Application</Text>
                       <Text fz={"sm"} h={22} w={15}>
