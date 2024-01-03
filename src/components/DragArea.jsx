@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { closestCenter, DndContext } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -66,9 +65,15 @@ const DragArea = () => {
             <SimpleGrid
               cols={{ base: 2, sm: 3, md: 4, lg: 6 }}
               style={{ overflow: "hidden" }}
+              pt={"xl"}
             >
               {pageOrder.map((page) => (
-                <SortablePage key={page} page_number={page} />
+                <SortablePage
+                  key={page}
+                  page_number={page}
+                  pageOrder={pageOrder}
+                  setPageOrder={setPageOrder}
+                />
               ))}
             </SimpleGrid>
           </SortableContext>
