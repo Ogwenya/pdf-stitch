@@ -10,7 +10,7 @@ PDF Stitch is a desktop application designed to facilitate the rearrangement of 
 
 To use PDF Stitch, follow these steps:
 
-- Download the latest release from the Releases page.
+- Download the latest release from the Releases page or from the [landing page](https://pdf-stitch.vercel.app/).
 - Install the application on your desktop.
 - Open PDF Stitch and start rearranging your PDF pages effortlessly.
 
