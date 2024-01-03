@@ -23,13 +23,13 @@ function App() {
   const { isStateUpdating } = useDocumentStore();
 
   // Updater integration
-  function startInstall(newVersion) {
+  async function startInstall(newVersion) {
     notifications.show({
       title: `Installing update v${newVersion}`,
       message: "Will relaunch afterwards",
       autoClose: false,
     });
-    installUpdate().then(relaunch);
+    await installUpdate().then(await relaunch());
   }
 
   const checkForUpdates = () => {
