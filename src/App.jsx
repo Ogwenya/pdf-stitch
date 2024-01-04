@@ -30,9 +30,18 @@ function App() {
       autoClose: false,
     });
 
-    await installUpdate().then(async () => {
-      await relaunch();
-    });
+    try {
+      await installUpdate().then(async () => {
+        await relaunch();
+      });
+    } catch (error) {
+      notifications.show({
+        color: "red",
+        title: "Update Error",
+        message: error || error.message,
+        autoClose: false,
+      });
+    }
   }
 
   const checkForUpdates = () => {

@@ -13,7 +13,7 @@ edition = "2021"
 tauri-build = { version = "1.5", features = [] }
 
 [dependencies]
-tauri = { version = "1.5", features = [ "updater", "process-exit", "dialog-all", "window-unmaximize", "window-unminimize", "fs-exists", "window-minimize", "window-close", "window-set-fullscreen", "fs-read-dir", "http-all", "notification-all", "path-all", "window-maximize", "fs-write-file", "window-set-decorations", "window-set-focus", "fs-create-dir", "fs-read-file", "window-set-size", "process-relaunch", "window-start-dragging", "os-all", "shell-open"] }
+tauri = { version = "1.5", features = [ "global-shortcut-all", "updater", "process-exit", "dialog-all", "window-unmaximize", "window-unminimize", "fs-exists", "window-minimize", "window-close", "window-set-fullscreen", "fs-read-dir", "http-all", "notification-all", "path-all", "window-maximize", "fs-write-file", "window-set-decorations", "window-set-focus", "fs-create-dir", "fs-read-file", "window-set-size", "process-relaunch", "window-start-dragging", "os-all", "shell-open"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 

@@ -43,7 +43,7 @@
         "writeFile": true
       },
       "globalShortcut": {
-        "all": false
+        "all": true
       },
       "http": {
         "all": true,
@@ -130,7 +130,7 @@
         "installMode": "passive"
       },
       "endpoints": [
-        "https://successful-gold-camel.cyclic.app/release?api_key=t45v766iv5y5v7n33_i1r55669sty45t5t546t7b67"
+        "https://update-server-b4cx.onrender.com/release?api_key=t45v766iv5y5v7n33_i1r55669sty45t5t546t7b67"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDJFMjk0NUQ5RUQ1QzQ5NQpSV1NWeE5XZVhaVGlBcll0QXNDL3lqamhrM2Y5N1cwUCtqUXJuMFhkTmk2U256R3kzUEZHb1Z6dgo="
     },
