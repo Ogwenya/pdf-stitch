@@ -4,6 +4,8 @@
 
 PDF Stitch is a desktop application designed to facilitate the rearrangement of PDF pages with ease. Whether you need to organize, reorder, or combine pages from different PDF files, PDF Stitch provides a user-friendly interface to streamline the process.
 
+- The source code for the update server is available at: https://github.com/Ogwenya/tauri-update-server
+
 ## Getting Started
 
 ### Installation
@@ -27,6 +29,7 @@ To use PDF Stitch, follow these steps:
 
 - Intuitive Interface: User-friendly design for easy navigation.
 - Drag and Drop: Rearrange pages effortlessly by dragging and dropping.
+- Deleting pages: Click the `x` icon on the top-right of each page to delete it
 - Theme Toggle: PDF Stitch offers both Dark and Light modes to suit your preferences. Look for the theme toggle icon in the top right menu.
 
 ### Future Features
