@@ -126,6 +126,9 @@
     "updater": {
       "active": true,
       "dialog": false,
+      "windows": {
+        "installMode": "passive"
+      },
       "endpoints": [
         "https://successful-gold-camel.cyclic.app/release?api_key=t45v766iv5y5v7n33_i1r55669sty45t5t546t7b67"
       ],

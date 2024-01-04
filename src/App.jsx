@@ -29,7 +29,10 @@ function App() {
       message: "Will relaunch afterwards",
       autoClose: false,
     });
-    await installUpdate().then(await relaunch());
+
+    await installUpdate().then(async () => {
+      await relaunch();
+    });
   }
 
   const checkForUpdates = () => {
