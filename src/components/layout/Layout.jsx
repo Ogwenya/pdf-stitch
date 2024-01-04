@@ -8,7 +8,9 @@ const Layout = ({ children }) => {
         <AppHeader />
       </AppShell.Header>
 
-      <AppShell.Main px={"lg"}>{children}</AppShell.Main>
+      <AppShell.Main px={"lg"} mih={"100%"}>
+        {children}
+      </AppShell.Main>
     </AppShell>
   );
 };
