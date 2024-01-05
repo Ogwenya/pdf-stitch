@@ -1,24 +1,8 @@
 .root {
-  padding-top: rem(80px);
-  padding-bottom: rem(80px);
-}
-
-.inner {
-  position: relative;
-}
-
-.image {
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
-  max-height: 75%;
-}
-
-.content {
-  padding-top: rem(220px);
-  position: relative;
-  z-index: 1;
+  height: calc(100dvh - var(--app-shell-header-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
@@ -30,10 +14,6 @@
 }
 
 @media (max-width: 48em) {
-  .content {
-    padding-top: rem(120px);
-  }
-
   .title {
     font-size: rem(32px);
   }

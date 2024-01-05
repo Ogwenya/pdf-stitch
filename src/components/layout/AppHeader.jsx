@@ -14,19 +14,20 @@ import {
   useComputedColorScheme,
   ActionIcon,
   Box,
+  Loader,
 } from "@mantine/core";
 import { IconChevronDown, IconMoon, IconSun } from "../../icons/Icons";
 import useDocumentStore from "../../hooks/documentStore";
 
 const AppHeader = () => {
-  const { pdfBytes, pdfFile, pageOrder, setPdfFile, clearState } =
+  const { pdfBytes, pdfFile, pageOrder, setPdfFile, clearState, mergePdfFile } =
     useDocumentStore();
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
 
-  const selectDocument = async () => {
+  const selectDocument = async (type) => {
     if (window.__TAURI__ !== undefined) {
       const selected = await open({
         filters: [
@@ -46,7 +47,21 @@ const AppHeader = () => {
         });
       } else {
         // user selected a file
-        await setPdfFile(selected);
+
+        if (selected.toLowerCase().endsWith(".pdf")) {
+          if (type === "merge") {
+            await mergePdfFile(selected);
+          } else {
+            await setPdfFile(selected);
+          }
+        } else {
+          notifications.show({
+            color: "red",
+            title: "File Selection Error",
+            message: "Please select a PDF file.",
+            autoClose: false,
+          });
+        }
       }
     }
   };
@@ -68,8 +83,6 @@ const AppHeader = () => {
     // Create a new PDF document with reordered pages
     const newPdfDoc = await PDFDocument.create();
 
-    console.log({ pageOrder });
-
     // Reorder the pages based on the new order
     await pageOrder.map(async (pageIndex) => {
       const currentPage = pageIndex - 1;
@@ -85,6 +98,19 @@ const AppHeader = () => {
     try {
       // remove existing notifications
       notifications.clean();
+
+      notifications.show({
+        id: "file_operation",
+        color: "blue",
+        title: "File Operation in Progress",
+        message: (
+          <Flex gap={"sm"} mt={"sm"}>
+            <Text>Saving your File</Text>
+            <Loader color="blue" size={"xs"} />
+          </Flex>
+        ),
+        autoClose: false,
+      });
 
       const desktopPath = await desktopDir();
       const results_folder = `${desktopPath}pdf-stitch`;
@@ -117,14 +143,17 @@ const AppHeader = () => {
       const newPdfBytes = await reorderPDF();
       const response = await writeBinaryFile(file_path, newPdfBytes);
 
-      notifications.show({
+      notifications.update({
+        id: "file_operation",
         color: "green",
         title: "File Operation Success",
         message: (
-          <>
+          <Box mt="xs">
             <Text>File saved to:</Text>
-            <Text fw={700}>{file_path}</Text>
-          </>
+            <Text fw={700} fz={"sm"}>
+              {file_path}
+            </Text>
+          </Box>
         ),
         autoClose: false,
       });
@@ -161,9 +190,16 @@ const AppHeader = () => {
                   </div>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  <Menu.Item onClick={selectDocument}>Open</Menu.Item>
+                  <Menu.Item onClick={() => selectDocument("no merge")}>
+                    Open
+                  </Menu.Item>
                   {pdfBytes && pageOrder && pageOrder.length > 0 && (
-                    <Menu.Item onClick={savePDF}>Save</Menu.Item>
+                    <>
+                      <Menu.Item onClick={() => selectDocument("merge")}>
+                        Add PDF
+                      </Menu.Item>
+                      <Menu.Item onClick={savePDF}>Save</Menu.Item>
+                    </>
                   )}
                 </Menu.Dropdown>
               </Menu>
